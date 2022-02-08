@@ -1,3 +1,11 @@
+# Run requirements
+
+Before proceeding install libraries you'll need (mostly for training the model) as specified in `requirements.txt`
+```
+  pip install requirements.txt
+```
+
+
 # Build mlflow models
 First you should run these to get the runner ids for next part.
 ```

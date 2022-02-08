@@ -1,3 +1,5 @@
+from abc import ABC
+
 import numpy as np
 import pandas as pd
 import mlflow
@@ -49,7 +51,6 @@ def feat_eng():
         So we can work with it.
     """
 
-
     df_clean = df_clean.merge(df_clean['click_timestamp'].apply(lambda t: part_date_time(t)), left_index=True,
                               right_index=True)
     df_clean = df_clean.drop('click_timestamp', axis=1)
@@ -61,14 +62,11 @@ def feat_eng():
     numerical_columns = df_clean.select_dtypes(exclude='object')
     categorical_columns = df_clean.select_dtypes(include='object')
 
-
-
     columns = list(categorical_columns.columns)
     for col in columns:
         one_hot_encode(df_clean, col, min(250, df_clean[col].nunique()))
     for col in columns:
         df_clean = df_clean.drop(col, axis=1)
-
 
     """
         We no longer have categotical columns. the column 'nb_clicks_1week'
@@ -83,7 +81,7 @@ def feat_eng():
     df_clean.to_csv("Data/clean_dataset.csv", index=False)
 
 
-class mlModel(mlflow.pyfunc.PythonModel):
+class mlModel(mlflow.pyfunc.PythonModel, ABC):
     def __init__(self):
         feat_eng()
 
@@ -93,7 +91,7 @@ if __name__ == "__main__":
     np.random.seed(40)
     with mlflow.start_run() as runner:
         model = mlModel()
-        model_path = os.path.join('mlflow_models', "pre_processing_"+runner.info.run_id)
+        model_path = os.path.join('mlflow_models', "pre_processing_" + runner.info.run_id)
         mlflow.pyfunc.save_model(path=model_path, python_model=model)
         reload_model = mlflow.pyfunc.load_model(model_path)
-        print(f'runner is: {runner.info.run_id}')
+        print(f'runner id is: {runner.info.run_id}')

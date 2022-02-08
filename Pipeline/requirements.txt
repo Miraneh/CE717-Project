@@ -1,11 +1,12 @@
 numpy
 pandas
 scikit-learn
-sklearn
 imbalanced-learn
 keras
+keras-tuner
 tensorflow
 mlflow
 logging
 sys
 warnings
+os

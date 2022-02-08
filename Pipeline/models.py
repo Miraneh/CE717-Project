@@ -4,7 +4,7 @@ from sklearn.utils import resample
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
-from sklearn.metrics import precision_score, recall_score, accuracy_score, f1_score
+from sklearn.metrics import f1_score
 from keras.models import Sequential
 from keras.layers import Dense
 import tensorflow as tf
@@ -76,6 +76,7 @@ def trainer(X_train, Y_train, X_test, Y_test):
     y_pred_bool = np.argmax(y_pred, axis=1)
 
     print(classification_report(Y_test, y_pred_bool))
+    mlflow.log_param('f1_score', f1_score(Y_test, y_pred_bool, average='macro'))
     return hypermodel
 
 
@@ -132,4 +133,4 @@ if __name__ == "__main__":
         model = mode(2)
         mlflow.keras.save_model(path=model_path, python_model=model)
         reload_model = mlflow.pyfunc.load_model(model_path)
-        print(f'runner is: {runner.info.run_id}')
+        print(f'runner id is: {runner.info.run_id}')

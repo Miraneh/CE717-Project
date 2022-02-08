@@ -17,7 +17,7 @@ These will print out the id for you.
 Add those ids from previous part to the end of file to build. (You could change file name pattern for `pre_proccessing` and `models` in their respective python scripts)
 ```
   mlflow models build-docker -m mlflow_models/pre_processing_9f5fb7dd33914c1a8c9b0416da3d7ba6 -n processed --enable-mlserver
-  mlflow models build-docker -m mlflow_models/model_e7fd64a377594f8eb23ee691d3637354 -n trained-model --enable-mlserver
+  mlflow models build-docker -m mlflow_models/models_e7fd64a377594f8eb23ee691d3637354 -n trained-model --enable-mlserver
 ```
 
 # Run containers

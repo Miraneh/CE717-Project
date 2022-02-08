@@ -1,4 +1,4 @@
-# Run requirements
+# Install requirements
 
 Before proceeding install libraries you'll need (mostly for training the model) as specified in `requirements.txt`
 ```
